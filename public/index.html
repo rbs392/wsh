@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wsh!</title>
+</head>
+<script type="text/javascript">
+	function postit(){
+		$("#loader").show();
+		$.ajax("http://localhost:3000",{
+			method: "post",
+			data: '{"cmd":"'+$("#command").val()+'"}',
+			contentType: "application/json"
+		}).done(function(data){
+			$("#output").html("<pre>"+data+"</pre>")
+		}).fail(function(data){
+			$("#output").html("<h4>Some error occured...</h4>")
+		}).always(function(){
+			$("#loader").hide();
+		})
+	}
+</script>
+<body>
+		<div style="display:table;clear:both;">
+			<div style="float:left">
+				<label for="command">Command</label>
+				<input id="command" type="text"/>
+				<button type="button" onclick=postit()>Ok</button>
+			</div>
+			<div style="float:left;margin-left:5px">
+				<img src="./379.gif" id="loader" style="display:none" width="20px" height="20px"/>
+			</div>
+		</div>
+
+
+		<div style="margin:20px;border:1px solid black; min-height:500px; width: 100%">
+			<div id="output">
+					
+			</div>
+		</div>
+	
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+</html>
